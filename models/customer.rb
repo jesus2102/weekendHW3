@@ -63,4 +63,30 @@ class Customer
      values = SqlRunner.run(sql)
      return values.map {|value| {name:value['name'], title:value['title']}}
   end
+
+  # def check_price(film)
+  #   sql = "SELECT films.price
+  #   FROM films
+  #   WHERE films.id = $1"
+  #   values = [film.id]
+  #   movie_data = SqlRunner.run(sql, values).first()
+  #   price_movie = movie_data['price'].to_i
+  #   return price_movie / 100.0
+  # end
+
+
+  def buy_ticket(film)
+
+    price = film.price()
+    if price < @funds
+      @funds -= price
+      update()
+      ticket = Ticket.new({'customer_id' => @id, 'film_id' => film.id})
+      ticket.save()
+      return ticket
+    else
+      return "Talk to you boss. Maybe you need an advance..."
+    end
+
+  end
 end
