@@ -31,6 +31,12 @@ class Ticket
     return Ticket.map_tickets(tickets)
   end
 
+  def update()
+    sql = "UPDATE tickets SET (customer_id, film_id) = ($1, $2) where id = $3"
+    values = [@customer_id, @film_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def self.map_tickets(tickets_data)
     return tickets_data.map {|ticket| Ticket.new(ticket)}
   end

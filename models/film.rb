@@ -29,6 +29,12 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def update()
+    sql = "UPDATE films SET (title, price) = ($1, $2) where id = $3"
+    values = [@title, @price, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def self.map_films(films_data)
     return films_data.map {|film| Film.new(film)}
   end
