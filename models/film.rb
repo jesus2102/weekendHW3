@@ -10,7 +10,7 @@ class Film
   def initialize(options)
     @id = options['id'].to_i() if options['id']
     @title =  options['title']
-    @price = options['price'].to_i()
+    @price = options['price'].to_f()
   end
 
   def save()
@@ -50,6 +50,15 @@ class Film
     values = [@id]
     show_customers = SqlRunner.run(sql, values)
     return Customer.map_customers(show_customers)
+  end
+
+  def get_number_customers()
+    sql = "SELECT tickets.customer_id
+    FROM tickets
+    WHERE tickets.film_id = $1"
+    values = [@id]
+    number_customers = SqlRunner.run(sql, values)
+    return number_customers.count()
   end
 
 end

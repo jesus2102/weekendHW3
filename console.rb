@@ -10,17 +10,17 @@ Ticket.delete_all()
 
   customer1 = Customer.new({
     'name' => 'Jesus',
-    'funds' => '60'
+    'funds' => '60.00'
     })
     customer1.save()
   customer2 = Customer.new({
     'name' => 'Magda',
-    'funds' => '80'
+    'funds' => '80.00'
     })
     customer2.save()
   customer3 = Customer.new({
     'name' => 'Shaun',
-    'funds' => '20'
+    'funds' => '20.00'
     })
     customer3.save()
 

@@ -10,7 +10,7 @@ class Customer
   def initialize(options)
     @id = options['id'].to_i() if options['id']
     @name = options['name']
-    @funds = options['funds'].to_i()
+    @funds = options['funds'].to_f()
   end
 
 
@@ -71,7 +71,7 @@ class Customer
   #   values = [film.id]
   #   movie_data = SqlRunner.run(sql, values).first()
   #   price_movie = movie_data['price'].to_i
-  #   return price_movie / 100.0
+  #   return price_movie
   # end
 
 
@@ -85,8 +85,16 @@ class Customer
       ticket.save()
       return ticket
     else
-      return "Talk to you boss. Maybe you need an advance..."
+      return "Talk to you boss. Maybe you need an advance!"
     end
+  end
 
+  def get_number_tickets()
+    sql = "SELECT tickets.film_id
+    FROM tickets
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    number_movies = SqlRunner.run(sql, values)
+    return number_movies.count()
   end
 end
